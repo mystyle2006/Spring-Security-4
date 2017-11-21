@@ -1,0 +1,5 @@
+com\java\tutorial\config\WebSecurityConfig.class
+com\java\tutorial\controller\UserController.class
+com\java\tutorial\config\MvcWebApplicationInitializer.class
+com\java\tutorial\config\SecurityWebApplicationInitializer.class
+com\java\tutorial\config\WebConfig.class
