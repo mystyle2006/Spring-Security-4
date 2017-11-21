@@ -82,6 +82,7 @@ After changes in **pom.xml**, update the maven web project.
 To update web maven project, right click on **maven-web-project-example** project -> **maven** -> **Update Project**.
 
 * Review the maven web project structure.
+
 ![Alt text](https://user-images.githubusercontent.com/18185890/33056418-f33f0088-cec8-11e7-8e8e-1c2708d98a56.png)
 
 * Build the project using the following maven command.
