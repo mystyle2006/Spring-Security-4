@@ -474,3 +474,61 @@ Here is the equialvent XML configuration for registering the spring **springSecu
 </filter-mapping>
 ~~~
 
+## Step 7 - Create spring web configuration class
+Create a web **@Configuration** class annotated with **@EnableWebMvc** and **@ComponentScan** as follows.
+
+**WebConfig.java**
+
+~~~
+package com.java.tutorial.config;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+@Configuration
+@EnableWebMvc
+@ComponentScan(basePackages = { "com.java.tutorial.controller" })
+public class WebConfig extends WebMvcConfigurerAdapter {
+	@Override
+	public void configureViewResolvers(ViewResolverRegistry registry){
+		registry.jsp().prefix("/WEB-INF/views/").suffix(".jsp");
+	}
+}
+~~~
+
+## Step 8 - Create application initializer class
+Create a **MvcWebApplicationInitializer** class, which will replace our traditional **web.xml**, to initialize the Servlet container.
+
+Load the **WebSecurityConfig** and **WebConfig** classes using the **getRootConfigClasses()** and **getServletConfigClasses()** methods as follows.
+
+**MvcWebApplicationInitializer.java**
+
+~~~
+package com.java.tutorial.config;
+
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+public class MvcWebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+	@Override
+	protected Class<?>[] getRootConfigClasses(){
+		return new Class[] { WebSecurityConfig.class };
+	}
+	
+	@Override
+	protected Class<?>[] getServletConfigClasses(){
+		return new Class[] { WebConfig.class };
+	}
+	
+	@Override
+	protected String[] getServletMappings(){
+		return new String[] { "/" };
+	}
+}
+~~~
+
+## Step 9 - Review the final project structure.
+
