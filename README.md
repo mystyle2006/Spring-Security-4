@@ -88,6 +88,7 @@ To update web maven project, right click on **maven-web-project-example** projec
 * Build the project using the following maven command.
 
 **mvn clean install**
+
 To execute the about maven command in Eclipse IDE, go to **Run** menu -> **Run Configuration..** to create a new configuration.
 
 In **Run Configuration** Wizard, double click on **Maven Build** and provide the configuration information (Name, Base Directory and Goals) as shown in the below image.
@@ -95,10 +96,13 @@ In **Run Configuration** Wizard, double click on **Maven Build** and provide the
 ![Alt text](https://user-images.githubusercontent.com/18185890/33056419-f365f80a-cec8-11e7-8871-de8a6cf641a2.png)
 
 Now click on the *Config* and monitor the output in console.
+
 ![Alt text](https://user-images.githubusercontent.com/18185890/33056420-f38cac7a-cec8-11e7-8d45-c63f8ec18c2d.png)
 
 * Run embedded tomcat server using the following command.
+
 **mvc tomcat7:run**
+
 To execute the about maven command in Eclipse IDE, create a new configuration as shown in the below image.
 
 ![Alt text](https://user-images.githubusercontent.com/18185890/33056421-f3d49f08-cec8-11e7-98c8-4f22a0afd439.png)
