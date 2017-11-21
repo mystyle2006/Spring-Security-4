@@ -389,7 +389,7 @@ Create **login.jsp**, **index.jsp**, **user.jsp** and **admin.jsp** files under 
 ## Step 5 - Create spring security configuration class.
 The first step is to create a **@Configuration** class by extending the **WebSecurityConfigurerAdapter** class as follows.
 
-**WebSecurityConfig.java*
+**WebSecurityConfig.java**
 
 ~~~
 package com.java.tutorial.config;
@@ -440,3 +440,37 @@ From the above configuration class, it is clear that -
 * URL '/' is not secured and accessible by everyone.
 * Any URLs that starts with **'/user'** are secured and only accessible by users who have the role **'USER'**.
 * Any URLs that starts with **'/admin'** are secured and only accessible by users who have the role **'ADMIN'**.
+
+## Step 6 - Register springSecurityFilterChain Filter
+In java configuration, we can register the spring **sepringSecurityFilterChain** using the base class
+**AbstractSecurityWebApplicationInitializer** as follows.
+
+**SecurityWebApplicationInitializer.java**
+
+~~~
+package com.java.tutorial.config;
+
+import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
+
+// this configuration only registers the springsecurityfilterChain Filter for every URL in your application.
+public class SecurityWebApplicationInitializer extends AbstractSecurityWebApplicationInitializer {
+	
+}
+~~~
+
+This configuration only registers the **springSecurityFilterChain** Filter for every URL in your application.
+
+Here is the equialvent XML configuration for registering the spring **springSecurityFilterChain** -
+
+~~~
+<filter>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+</filter>
+ 
+<filter-mapping>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+~~~
+
