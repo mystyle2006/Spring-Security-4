@@ -385,3 +385,58 @@ Create **login.jsp**, **index.jsp**, **user.jsp** and **admin.jsp** files under 
 ~~~
 
 **<security:authorize />** tag evaluates the access expression, specified in the access attribute, to true for authenticate user. For your information, view [Common Built-In Expressions](https://docs.spring.io/spring-security/site/docs/current/reference/html/el-access.html#el-common-built-in) which can be used in **access** attribute of the **<security:authorize />** tag.
+
+## Step 5 - Create spring security configuration class.
+The first step is to create a **@Configuration** class by extending the **WebSecurityConfigurerAdapter** class as follows.
+
+**WebSecurityConfig.java*
+
+~~~
+package com.java.tutorial.config;
+
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+@EnableWebSecurity
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.inMemoryAuthentication()
+			.withUser("inho").password("123").roles("USER")
+			.and()
+			.withUser("admin").password("123").roles("ADMIN");
+	}
+	
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers("/").permitAll()
+		.and()
+		.authorizeRequests().antMatchers("/user**").hasRole("USER")
+		.and()
+		.authorizeRequests().antMatchers("/admin**").hasRole("ADMIN")
+		.and()
+		.formLogin()
+			.loginPage("/login")
+			.usernameParameter("id")
+			.passwordParameter("pw")
+		.and().csrf()
+		.and()
+		.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+	}
+}
+~~~
+
+This Java configuration class creates **a Servlet Filter known as the springSecurityFilterChain**, which is responsible for all security(protecting the application URLs, validating submitted username and passwords, redirecting to the log in form) within your application.
+
+The overridden method **configure(AuthenticationManagerBuilder auth)** configure the in momory authentication with user credentials and roles. You can configure the other authetnications too such as JDBC, LDAP etc.
+
+The overriden method **configure(HttpSecurity http)** configure the web based security for all HTTP request. By default it will be applied to all requests, but can be restricted using the **requestMatcher()** or other similar methods.
+
+From the above configuration class, it is clear that -
+
+* URL '/' is not secured and accessible by everyone.
+* Any URLs that starts with **'/user'** are secured and only accessible by users who have the role **'USER'**.
+* Any URLs that starts with **'/admin'** are secured and only accessible by users who have the role **'ADMIN'**.
