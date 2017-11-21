@@ -532,3 +532,24 @@ public class MvcWebApplicationInitializer extends AbstractAnnotationConfigDispat
 
 ## Step 9 - Review the final project structure.
 
+![Alt text](https://user-images.githubusercontent.com/18185890/33057811-0345093a-ced0-11e7-893e-659aadf5367b.png)
+
+## Step 10 - Test
+Use the following maven commands to build, deploy and run Tomcat server.
+
+**mvn clean install** (This command will trigger war packaging)
+**mvc tomcat7:run** (This command will run embeded tomcat and deploy war file automatically)
+
+**Type http://localhost:8181/ in browser's address bar**
+
+![Alt text](https://user-images.githubusercontent.com/18185890/33057812-03710012-ced0-11e7-8099-e7629af4c284.PNG)
+
+Now click on the *User* link
+
+Since, any URL that start with **'/user'** are restricted to users who have the role **'USER'**. So spring security will generate a login page asking for credentials.
+
+![Alt text](https://user-images.githubusercontent.com/18185890/33057813-039fbe7a-ced0-11e7-8229-0356c820c7b2.PNG)
+
+Then, put our designed credentials to access
+
+![Alt text](https://user-images.githubusercontent.com/18185890/33057814-03cbc448-ced0-11e7-8c1f-f74a2539504c.PNG)
