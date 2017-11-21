@@ -13,20 +13,20 @@ In this post, I will show you **how to integrate Spring MVC application with Spr
 ## Step1 - Create maven project
 Create a maven project for our Spring MVC + Spring Security application in Eclipse IDE.
 
-* Go to **New** menu -> **Other** -> **Maven** -> **Maven Project** and click on **Next**.
+* #1 Go to **New** menu -> **Other** -> **Maven** -> **Maven Project** and click on **Next**.
 
 ![Alt text](https://user-images.githubusercontent.com/18185890/33056423-f4207ea0-cec8-11e7-87d6-3eb2b72f7730.png)
 
-* In **New Maven Project** wizard, select **Create a simple project** and click on **Next**.
+* #2 In **New Maven Project** wizard, select **Create a simple project** and click on **Next**.
 
 ![Alt text](https://user-images.githubusercontent.com/18185890/33056416-f2d92a56-cec8-11e7-9b53-f5b9d2d1e11e.png)
 
-* In next wizard, add project information as shown below and click on **Finish**.
+* #3 In next wizard, add project information as shown below and click on **Finish**.
 For your information, please click this link to learn more about [Maven naming conventions on groupid artifactId and version](https://maven.apache.org/guides/mini/guide-naming-conventions.html)
 
 ![Alt text](https://user-images.githubusercontent.com/18185890/33056417-f3012bdc-cec8-11e7-831a-4b208a26c290.png)
 
-* Open **pom.xml** file and add servlet dependency and Tomcat maven plugin in it as shown below.
+* #4 Open **pom.xml** file and add servlet dependency and Tomcat maven plugin in it as shown below.
 ~~~
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -81,11 +81,11 @@ For your information, please click this link to learn more about [Maven naming c
 After changes in **pom.xml**, update the maven web project.
 To update web maven project, right click on **maven-web-project-example** project -> **maven** -> **Update Project**.
 
-* Review the maven web project structure.
+* #5 Review the maven web project structure.
 
 ![Alt text](https://user-images.githubusercontent.com/18185890/33056418-f33f0088-cec8-11e7-8e8e-1c2708d98a56.png)
 
-* Build the project using the following maven command.
+* #6 Build the project using the following maven command.
 
 **mvn clean install**
 
@@ -99,7 +99,7 @@ Now click on the *Config* and monitor the output in console.
 
 ![Alt text](https://user-images.githubusercontent.com/18185890/33056420-f38cac7a-cec8-11e7-8d45-c63f8ec18c2d.png)
 
-* Run embedded tomcat server using the following command.
+* #7 Run embedded tomcat server using the following command.
 
 **mvc tomcat7:run**
 
