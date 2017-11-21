@@ -245,3 +245,143 @@ public class UserController {
 	}
 }
 ~~~
+
+## Step4 - Create JSP views
+Create **login.jsp**, **index.jsp**, **user.jsp** and **admin.jsp** files under **src\main\webapp\WEB-INF\views** folder.
+
+**login.jsp**
+
+~~~
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<%@ taglib prefix ="c" uri= "http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<c:url var="loginUrl" value="/login" />
+<form action="${loginUrl}" method="POST">
+	<c:if test="${param.error != null}">
+		<p>Invalid username and password.</p>
+	</c:if>
+	<c:if test="${param.logout != null}">
+		<p>You have been logged out successfully.</p>
+	</c:if>
+	ID : <input type="text" name="id" />
+	PW : <input type="password" name="pw" />
+	<input type="hidden" name="${_csrf.parameterName}"   value="${_csrf.token}" />
+	<input type="submit" value="Submit" />
+</form>
+</body>
+</html>
+~~~
+
+**index.jsp**
+
+~~~
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+  prefix="security"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>Spring Security 4 - Hello World Example</h2>
+	<hr />
+	<h3>
+		Welcome!
+		<security:authorize access="isAnonymous()">
+			Guest
+		</security:authorize>
+		<!-- Print the logged in user name -->
+		<security:authorize access="isAuthenticated()">
+			<security:authentication property="principal.username"/>
+		</security:authorize>
+		
+	</h3>
+	<security:authorize access="isAnonymous()">
+		Login as <a href="user">User</a> or <a href="/admin">Admin</a>
+	</security:authorize>
+	<security:authorize access="isAuthenticated()">
+		<security:authorize access="hasRole('USER')">
+			<a href="user">My Profile</a>
+		</security:authorize>
+		<security:authorize access="hasRole('ADMIN')">
+			<a href="admin">My Profile</a>
+		</security:authorize>
+		<a href="logout">Logout</a>
+	</security:authorize>
+</body>
+</html>
+~~~
+
+**user.jsp**
+
+~~~
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>Spring Security 4 - Hello World Example</h2>
+	<hr />
+	<h3>User dashboard  </h3>
+	
+	<security:authorize access="isAuthenticated()">
+		<b>Welcome! <security:authentication property="principal.username" /></b>
+	</security:authorize>
+	
+	<br />
+	
+	<security:authorize access="isAuthenticated()">
+		<a href="/">Home</a> | <a href="logout">Logout</a>
+	</security:authorize>
+</body>
+</html>
+~~~
+
+**admin.jsp**
+
+~~~
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+  prefix="security"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>Spring Security 4 - Hello World Example</h2>
+	<hr />
+	
+	<h3>Admin dashboard</h3>
+	
+	<security:authorize access="isAuthenticated()">
+		<b>Welcome! <security:authentication property="principal.username" /></b>
+	</security:authorize>
+	
+	<br />
+	
+	<security:authorize access="isAuthenticated()">
+		<a href="/">Home</a> | <a href="logout">Logout</a>
+	</security:authorize>
+</body>
+</html>
+~~~
+
+**<security:authorize />** tag evaluates the access expression, specified in the access attribute, to true for authenticate user. For your information, view [Common Built-In Expressions](https://docs.spring.io/spring-security/site/docs/current/reference/html/el-access.html#el-common-built-in) which can be used in **access** attribute of the **<security:authorize />** tag.
